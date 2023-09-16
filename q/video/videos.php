@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>Videos</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -15,7 +15,7 @@
 
 <?php
 
-$mysqli = require __DIR__ . "/database.php";
+$mysqli = require __DIR__ . "/../main/database.php";
 $id = $_SESSION['id'];
 
 if (isset($id)) {
@@ -28,9 +28,12 @@ if (isset($id)) {
         $videoDesc = $row0["video_desc"];
         $videoPath = $row0["video_path"];
 
-        echo "<a href='http://localhost/php-stuff/php-signup-login-main1/smth1.php?v=".$videoID."'>".$videoTitle."</a><br>";
+        echo "<a href='http://localhost/php-stuff/q/video/video.php?v=".$videoID."'>".$videoTitle."</a><br>";
     }
+} else {
+    header("Location: ../main/home.php");
 }
+
 ?>
 
 </body>

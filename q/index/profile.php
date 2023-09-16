@@ -12,9 +12,7 @@ if (isset($id)) {
     $result = $mysqli->query($sql);
     $user = $result->fetch_assoc();
 
-} else {
-    header("Location: ../main/home.php");
-}
+} 
 
 ?>
 
@@ -35,9 +33,9 @@ if (isset($id)) {
 <?php
 
     if ($user["profile_status"] == 0) {
-        echo "<img src='../uploads/profiledefault.png' style='width:200px;height:200px;'><br>";
+        echo "<img src='uploads/profiledefault.png' style='width:200px;height:200px;'><br>";
     } else {
-        echo "<img src='../uploads/profile".$user["id"].".".$user["profile_ext"]."?"." style='width:200px;height:200px;border-style:solid;'><br>";
+        echo "<img src='uploads/profile".$user["id"].".".$user["profile_ext"]."?"." style='width:200px;height:200px;border-style:solid;'><br>";
     }
 
     $sql = "SELECT profile_desc FROM user WHERE id='$id'";
@@ -66,6 +64,7 @@ if (isset($id)) {
 </form><br>
 
 <p><a href="../chat/chat.php">Talk with other users</a></p>
+<p><a href="../video/upload-video.php">Upload/view videos</a></p>
 
 
 <a href="../registration/logout.php">Log out</a><br>

@@ -1,13 +1,13 @@
 <?php
     session_start();
     $id = $_SESSION['id'];
-    $mysqli = require __DIR__ . "/database.php";
+    $mysqli = require __DIR__ . "/../main/database.php";
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Video Page</title>
+    <title>Videos</title>
 </head>
 <body>
     
@@ -23,7 +23,7 @@ if (isset($id)) {
     $userID = $user["user_id"];
     echo '
         <video width="320" height="240" controls>
-            <source src="uploads/'.$videoID.".mp4".'?'.' type="video/mp4">
+            <source src="video-uploads/'.$videoID.".mp4".'?'.' type="video/mp4">
             Your browser does not support the video tag.
         </video><br>';
     echo "Video title: ".$user["video_title"]."<br>Video description: ".$user["video_desc"]."<br>";
@@ -35,11 +35,8 @@ if (isset($id)) {
     echo "Uploaded by: ".$result1["name"];
     
 } else {
-    header("Location: signup.php");
+    header("Location: ../main/home.php");
 }
-
-
-
 
 ?>
 

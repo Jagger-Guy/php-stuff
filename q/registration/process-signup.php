@@ -41,9 +41,7 @@ if (isset($_POST["submit0"])) {
         die();
     }
     
-} else {
-    header("Location: ../home.php");
-}
+} 
 
 $zero = 0;
 $_SESSION["email"] = $email0;
@@ -51,7 +49,7 @@ $sql = "INSERT INTO user (name, email, password_hash, profile_status, video_num,
     VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $mysqli->stmt_init();
 $stmt->prepare($sql);
-$stmt->bind_param("sssiii", $_POST["name"], $_POST["email"], $password_hash, $zero, $zero, $zero);          
+$stmt->bind_param("sssiii", $_POST["name"], $email0, $password_hash, $zero, $zero, $zero);          
 
 if ($stmt->execute()) {
 

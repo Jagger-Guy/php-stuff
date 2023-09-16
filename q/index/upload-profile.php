@@ -22,15 +22,19 @@ if (isset($_POST["submit0"])) {         // file size in bytes
                 $sql = "SELECT profile_status, profile_ext FROM user WHERE id='$id'";
                 $user = $mysqli->query($sql);
                 $user = mysqli_fetch_assoc($user);
+                
+                if ($user["profile_status"] == 1) {
+                    unlink("uploads/profile".$id.".".$user["profile_ext"]."");
+                }
 
                 $fileNameNew = "profile".$id.".".$fileExt;
-                $_SESSION["fileName"] = $fileNameNew;
-                $fileDestination = '../uploads/'.$fileNameNew;
+                $fileDestination = 'uploads/'.$fileNameNew;
 
                 move_uploaded_file($fileTmp, $fileDestination);
                 $sql = "UPDATE user SET profile_status=1, profile_ext='$fileExt' WHERE id='$id';";
                 $mysqli->query($sql);
-                header("Location: profile.php?upload_success");
+                header("Location: profile.php");
+                
 
             } else {
                 echo "Filesize is too big.";
