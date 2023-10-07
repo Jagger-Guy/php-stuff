@@ -43,13 +43,17 @@ if (isset($id)) {
 
     if ($result["profile_followers"] == 0) {
         echo "This user has no followers.<br>";
-    } elseif ($result["video_num"] == 1) {
+    } elseif ($result["profile_followers"] == 1) {
         echo "This user has 1 follower.<br>";
     } else {
         echo "This user has ".$result["profile_followers"]." followers.<br>";
     }
 
     echo "<br><a href='http://localhost/php-stuff/q/chat/user-followers.php?uid=".$userID."'>Follow this user</a>";
+
+    if (isset($_SESSION["error2"])) {
+        echo "<br>".$_SESSION["error2"];
+    }
 
 } else {
     header("Location: ../main/home.php");

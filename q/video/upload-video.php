@@ -35,10 +35,6 @@ if (isset($id)) {
     header("Location: ../main/home.php");
 }
 
-if (isset($_SESSION["error1"])) {
-    echo $_SESSION["error1"];
-}
-
 ?>
 
 </body>

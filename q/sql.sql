@@ -7,7 +7,8 @@ CREATE TABLE user (
     profile_ext varchar(255),
     video_num int(11),
     profile_desc varchar(255),
-    profile_followers int(11)
+    profile_followers int(11),
+    followers_count varchar(500)
 );
 
 CREATE TABLE post (
@@ -19,8 +20,11 @@ CREATE TABLE post (
 
 CREATE TABLE video (
     user_id int(11),
-    video_id int(11),
+    video_id varchar(255),
     video_title varchar(255),
     video_desc varchar(255),
-    video_path varchar(255)
+    video_path varchar(255),
+    tn_path varchar(255),
+    video_rating int(11),
+    rating_count varchar(500)
 );

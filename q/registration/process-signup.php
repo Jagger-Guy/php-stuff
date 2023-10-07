@@ -44,12 +44,13 @@ if (isset($_POST["submit0"])) {
 } 
 
 $zero = 0;
+$a = serialize(array());
 $_SESSION["email"] = $email0;
-$sql = "INSERT INTO user (name, email, password_hash, profile_status, video_num, profile_followers) 
-    VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO user (name, email, password_hash, profile_status, video_num, profile_followers, followers_count) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)";
 $stmt = $mysqli->stmt_init();
 $stmt->prepare($sql);
-$stmt->bind_param("sssiii", $_POST["name"], $email0, $password_hash, $zero, $zero, $zero);          
+$stmt->bind_param("sssiiis", $_POST["name"], $email0, $password_hash, $zero, $zero, $zero, $a);          
 
 if ($stmt->execute()) {
 

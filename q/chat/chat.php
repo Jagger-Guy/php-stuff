@@ -43,7 +43,7 @@ if (isset($id)) {
                 echo $userName."</a> says: ".$postsName." - at ".$date.
                 "<a href='http://localhost/php-stuff/q/chat/delete-post.php?btnid=".$buttonID."'> Delete</a><br>";
             } else {
-                echo "<a href='http://localhost/php-stuff/q/chat/user.php?uid=".$userID."'>".$userName."</a> says: ".$postsName." - at ".$date."<br>";
+                echo "<a href='http://localhost/php-stuff/q/chat/user-profile.php?uid=".$userID."'>".$userName."</a> says: ".$postsName." - at ".$date."<br>";
             }
         }
     }   

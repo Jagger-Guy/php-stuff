@@ -8,12 +8,20 @@
 </head>
 <body>
 
-<script>
-var test=1;
-var ele = document.getElementById('test');
-ele.id="button_" + test;
-ele.value="button " + test;
-</script>
+<?php
+
+$a = 1;
+if ($a == 1) {
+    echo "hi";
+}
+
+?>
+
+
+
+
+
+
 
 </body>
 </html>

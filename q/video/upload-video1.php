@@ -35,7 +35,7 @@ if (isset($_POST["submit2"])) {
         die();
     }
 
-    if (strlen($videoTitle) > 20 || strlen($videoDesc) > 100) {
+    if (strlen($videoTitle) > 50 || strlen($videoDesc) > 100) {
         header("Location: videos.php");
         $_SESSION["error1"] = "Your title or description is too long.";
         die();
@@ -54,13 +54,17 @@ if (isset($_POST["submit2"])) {
                 $videoUrl = uniqid();
                 $videoName = $videoUrl.".".$videoExt;
                 $tnName = "tn".$videoUrl.".".$tnExt;
-                $tnDestination = '../video-uploads/'.$tnName;
-                $videoDestination = '../video-uploads/'.$videoName;
+                $tnDestination = 'video-uploads/'.$tnName;
+                $videoDestination = 'video-uploads/'.$videoName;
 
-                $sql = "INSERT INTO video (user_id, video_id, video_title, video_desc, video_path) values (?, ?, ?, ?, ?)";
+                $zero = 0;
+                $a = serialize(array());
+
+                $sql = "INSERT INTO video (user_id, video_id, video_title, video_desc, video_path, tn_path, video_rating, rating_count)
+                 values (?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $mysqli->stmt_init();
                 $stmt->prepare($sql);
-                $stmt->bind_param("issss", $id, $videoUrl, $videoTitle, $videoDesc, $videoDestination);
+                $stmt->bind_param("isssssis", $id, $videoUrl, $videoTitle, $videoDesc, $videoDestination, $tnDestination, $zero, $a);
                 $stmt->execute();
 
                 move_uploaded_file($videoTmp, $videoDestination);

@@ -7,7 +7,7 @@
 <head>
     <title>Videos</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../main/style.css">
 </head>
 <body>
 
@@ -27,8 +27,15 @@ if (isset($id)) {
         $videoTitle = $row0["video_title"];
         $videoDesc = $row0["video_desc"];
         $videoPath = $row0["video_path"];
+        $tnPath = $row0["tn_path"];
 
-        echo "<a href='http://localhost/php-stuff/q/video/video.php?v=".$videoID."'>".$videoTitle."</a><br>";
+        #echo "<img src='".$tnPath."?"." style='width:200px;height:200px;border-style:solid;'><br>";
+        #echo "<a href='http://localhost/php-stuff/q/video/video.php?v=".$videoID."'>".$videoTitle."</a><br>";
+
+        echo "<b><a href='http://localhost/php-stuff/q/video/video.php?v=".$videoID."'>".$videoTitle."<br>";
+            echo "<img src='".$tnPath."?"." style='width:200px;height:200px;border-style:solid;'><br>";
+        echo "</a><br>";
+
     }
 } else {
     header("Location: ../main/home.php");
