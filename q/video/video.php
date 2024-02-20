@@ -10,41 +10,55 @@
     $result0 = mysqli_fetch_assoc($result0);
     $userID = $result0["user_id"];
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if ($_SERVER["REQUEST_METHOD"] === "POST") { 
         $videoRating = $result0["video_rating"];
         $ratingCount = $result0["rating_count"];
         $ratingCount = unserialize($ratingCount);
+        $ratingCountFiltered = array();
+        $len_ratingCount = count($ratingCount);
 
-        if (isset($_POST["dislike"])) {
-            if ( ! in_array($id, $ratingCount)) {
-                $videoRating = $videoRating - 1;
-                $idTemp = $id + ".0";
-                array_push($ratingCount, $idTemp);
+        foreach ($ratingCount as $value) {
+            $a = (explode(".", $value));
+            array_push($ratingCountFiltered, $a);
+        }
+
+        for ($index0 = 0; $index0 < $len_ratingCount; $index0++) {
+            if ($ratingCountFiltered[$index0][0] == $id) {
+                $alreadyRated = 1;
+                $index1 = $index0;
+                unset($ratingCount[$index0]);
             } else {
-                foreach ($ratingCount as $a) {
-                    $b = explode(".", $a);
-                    if (($b[0] == $id) && ($b[1] == 0)) {
-                        $videoRating = $videoRating + 1;
-                    }
-                }
-            }
-        } elseif (isset($_POST["like"])) {
-            if ( ! in_array($id, $ratingCount)) {
-                $videoRating = $videoRating + 1;
-                $idTemp = $id + ".1";
-                array_push($ratingCount, $idTemp);
-            } else {
-                foreach ($ratingCount as $a) {
-                    $b = explode(".", $a);
-                    if (($b[0] == $id) && ($b[1] == 1)) {
-                        $videoRating = $videoRating - 1;
-                    }
-                }
+                $alreadyRated = 0;
             }
         }
 
-        $ratingCount = serialize($ratingCount);
+        if (isset($_POST["dislike"])) {          #first index = userid, second index: 1=like, 0=dislike           
+            if ($alreadyRated == 1) {
+                if ($ratingCountFiltered[$index1][1] == 0) {
+                    $videoRating = $videoRating + 1;
+                } elseif ($ratingCountFiltered[$index1][1] == 1) {
+                    $videoRating = $videoRating - 2;
+                }
+            } elseif ($alreadyRated == 0) {
+                $videoRating = $videoRating - 1;
+                array_push($ratingCount, $id);
+            }
+        }
 
+        if (isset($_POST["like"])) {                   
+            if ($alreadyRated == 1) {
+                if ($ratingCountFiltered[$index1][1] == 1) {
+                    $videoRating = $videoRating - 1;
+                } elseif ($ratingCountFiltered[$index1][1] == 0) {
+                    $videoRating = $videoRating + 2;
+                }
+            } elseif ($alreadyRated == 0) {
+                $videoRating = $videoRating + 1;
+                array_push($ratingCount, $id);
+            }
+        }
+            
+        $ratingCount = serialize($ratingCount);
         $sql3 = "UPDATE video SET video_rating='$videoRating', rating_count='$ratingCount' WHERE user_id='$userID'";
         $mysqli->query($sql3);
     }
@@ -91,7 +105,7 @@ if (isset($id)) {
         <button name='like'style='font-size:30px;position:absolute;bottom:180px;right:775px;'> 
             <i class='fas fa-thumbs-up'> Like</i>
         </button></form>";
-    echo $ratingCount;
+    #echo $ratingCount;
     echo "This video has ".$result0["video_rating"]." rating.<br>";
     
 } else {
